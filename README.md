@@ -26,6 +26,8 @@ There is no build step or custom backend. The current Phase 1 application persis
 
 No privileged Supabase credentials may be committed to this repository or included in browser code. In particular, never add a Supabase secret or `service_role` key, PostgreSQL password, database connection string, or other server credential. The future frontend will use only the browser-safe Supabase project URL and publishable key, with access enforced by Supabase Auth and Row Level Security.
 
-Phase 3 adds Supabase email/password authentication while retaining the existing browser `localStorage` portfolio temporarily. Authentication protects access through the normal application flow, but localStorage is not a secure shared database; Phase 4 will move portfolio persistence into the RLS-protected Supabase tables.
+Supabase email/password authentication protects the application flow, and Supabase PostgreSQL is the authoritative portfolio store. All portfolio operations use the authenticated user identity and remain subject to Row Level Security.
+
+When compatible legacy localStorage data is detected for an empty cloud portfolio, the application requires a JSON backup before offering a retry-safe one-time migration. The legacy portfolio keys are retained for rollback and are never silently deleted. After migration, JSON export reads the cloud-backed in-memory portfolio; generic JSON import is temporarily disabled to prevent destructive or partial cloud overwrites.
 
 Password-reset emails currently use the Supabase project's configured Site URL. Before deployment, configure the exact published GitHub Pages URL under Supabase Auth URL configuration. GitHub Pages deployment itself is not configured yet.

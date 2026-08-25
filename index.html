@@ -701,8 +701,7 @@ $('forgotPasswordBtn').onclick=async()=>{
   $('forgotPasswordBtn').disabled=true;
   showAuthMessage('Sending password reset email…');
   try{
-    const resetOptions=location.protocol==='https:'?{redirectTo:new URL('.',location.href).href}:undefined;
-    const {error}=await supabaseClient.auth.resetPasswordForEmail(email,resetOptions);
+    const {error}=await supabaseClient.auth.resetPasswordForEmail(email);
     if(error)throw error;
     showAuthMessage('If the account exists, a password reset email has been sent.','success');
   }catch(error){
