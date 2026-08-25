@@ -1,0 +1,20 @@
+# Local environment and private configuration
+.env
+.env.*
+!.env.example
+config.local.js
+*.local.js
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor and temporary files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.tmp
+*.bak
